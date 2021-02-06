@@ -1,0 +1,1 @@
+Hello this is the CV Project from THE ODIN PROJECT
