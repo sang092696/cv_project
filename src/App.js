@@ -9,10 +9,13 @@ class App extends React.Component{
             name:'',
             email:'',
             phoneNumber:'',
-            info:''
+            info:[],
+            isEditing:false,
+           
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit=this.handleSubmit.bind(this)
+        this.handleEdit = this.handleEdit.bind(this)
     }
 
     handleChange(e){
@@ -26,17 +29,23 @@ class App extends React.Component{
     handleSubmit(e){
         e.preventDefault();
         this.setState({
-            info:this.state.name
+            isEditing:!this.state.isEditing,
         })
     }
-
+    
+    handleEdit(){
+        this.setState({
+            isEditing:!this.state.isEditing,
+        })
+    }
+   
     render(){
 
         return(
             <form onSubmit={this.handleSubmit}>
-                <GenInfo name={this.state.name} email={this.state.email} number={this.state.phoneNumber} handleChange={this.handleChange}/>
+                <GenInfo isEditing={this.state.isEditing} name={this.state.name} email={this.state.email} number={this.state.phoneNumber} handleChange={this.handleChange}/>
                 <ReturnInfo info={this.state.info} />
-                <button type='submit'>Submit!</button>
+                {this.state.isEditing?<button onClick={this.handleEdit} type='button'>Edit</button>:<div><button type='submit'>Submit!</button></div>}
             </form>
             
         );
@@ -49,12 +58,14 @@ class GenInfo extends React.Component{
     }
 
     render(){
-
+        const inputInfoName = <input name="name" value={this.props.name} onChange={this.props.handleChange}></input>;
+        const inputInfoEmail = <input name="email" value={this.props.email} onChange={this.props.handleChange}></input>;
+        const inputInfoNumber = <input name="phoneNumber" value={this.props.number} onChange={this.props.handleChange}></input>;
         return(
             <div>
-                <input name="name" value={this.props.name} onChange={this.props.handleChange}></input>
-                <input name="email" value={this.props.email} onChange={this.props.handleChange}></input>
-                <input name="number" value={this.props.phoneNumber} onChange={this.props.handleChange}></input>
+                Name:{this.props.isEditing ?<div>{this.props.name}</div>:inputInfoName}
+                Email:{this.props.isEditing ?<div>{this.props.email}</div>:inputInfoEmail}
+                Phone Number:{this.props.isEditing ?<div>{this.props.number}</div>:inputInfoNumber}
             </div>
         );
     }
