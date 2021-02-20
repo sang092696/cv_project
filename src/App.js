@@ -48,7 +48,8 @@ class App extends React.Component{
         this.handleChangeSchool = this.handleChangeSchool.bind(this)
         this.handleChangeWork =this.handleChangeWork.bind(this)
         this.handleSubmit=this.handleSubmit.bind(this)
-        this.handleEdit = this.handleEdit.bind(this)
+        this.handleEditPage = this.handleEditPage.bind(this)
+        this.handleEditSection = this.handleEditSection.bind(this)
     }
 
     handleChangeGeneral(e){
@@ -140,11 +141,19 @@ class App extends React.Component{
         })
     }
     
-    handleEdit(){
+    handleEditPage(){
         this.setState({
             hasSubmitted:!this.state.hasSubmitted,
         })
     }
+
+    handleEditSection(key,arr){
+    
+        this.setState({
+
+        })
+    }
+
    
     render(){
 
@@ -156,7 +165,7 @@ class App extends React.Component{
                 <br />
                 <ExperienceInfo workInfoArr={this.state.workInfoArr} hasSubmitted={this.state.hasSubmitted} workInfo={this.state.workInfo} handleChange={this.handleChangeWork} />
                 <br />
-                {this.state.hasSubmitted?<button onClick={this.handleEdit} type='button'>Edit</button>:<div><button type='submit'>Submit!</button></div>}
+                {this.state.hasSubmitted?<div><button onClick={this.handleEditPage}>Edit Page</button></div>:<div><button type='submit'>Submit!</button></div>}
             </form>
             
         );
@@ -198,7 +207,7 @@ class GenInfo extends React.Component{
                 }
                 
                 <br />
-                {this.props.hasSubmitted?<div><button>Add More (+)</button><button>Edit</button></div>:<div><button>Add More (+)</button></div>}
+                {this.props.hasSubmitted?<div><button>Edit</button></div>:<div></div>}
             </div>
         );
     }
@@ -213,7 +222,9 @@ class EducationInfo extends React.Component{
         const inputMajor = <div><input id="educationInfo" name="major" value={this.props.educationInfo.major||""} onChange={this.props.handleChange}></input></div>;
         const inputYears = <div><input id="educationInfo" name="yearAt" value={this.props.educationInfo.yearAt||""} onChange={this.props.handleChange}></input></div>;
         return(
-            <div style={inputStyle}>
+            <div>
+                Education Experience:
+                <div style={inputStyle}>
                 {!this.props.hasSubmitted?
                 <div>
                     School Name:{inputSchool}
@@ -237,7 +248,8 @@ class EducationInfo extends React.Component{
                 </div>
                 }
                 <br />
-                
+                    
+                </div>
                 {this.props.hasSubmitted?<div><button>Add More (+)</button><button>Edit</button></div>:<div><button>Add More (+)</button></div>}
             </div>
         )
@@ -257,7 +269,9 @@ class ExperienceInfo extends React.Component{
         const inputJobDateEnd=<div><input id="workInfo" name="jobDateEnd" value={this.props.workInfo.jobDateEnd} onChange={this.props.handleChange}></input></div>
 
         return(
-            <div style={inputStyle}>
+            <div>
+                Work Experience:
+                <div style={inputStyle}>
                 {!this.props.hasSubmitted?
                 <div>
                     Company Name:{inputCompanyName}
@@ -286,6 +300,7 @@ class ExperienceInfo extends React.Component{
                 }
                 <br />
                 
+                </div>
                 {this.props.hasSubmitted?<div><button>Add More (+)</button><button>Edit</button></div>:<div><button>Add More (+)</button></div>}
             </div>
         )
